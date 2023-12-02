@@ -1,0 +1,95 @@
+@model franciscoalexandro.Models.NotaDeVenda
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>NotaDeVenda</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Data" class="control-label"></label>
+                <input asp-for="Data" class="form-control" />
+                <span asp-validation-for="Data" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+    <label asp-for="Status" class="control-label"></label>
+    <select id="statusDropdown" asp-for="Status" class="form-control">
+        <option value="1">Ativo</option>
+        <option value="2">Cancelado</option>
+        <option value="3">Devolvido</option>
+    </select>
+    <span asp-validation-for="Status" class="text-danger"></span>
+</div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendedorId" class="control-label"></label>
+                <select asp-for="VendedorId" class="form-control" asp-items="ViewBag.VendedorId"></select>
+                <span asp-validation-for="VendedorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransportadoraId" class="control-label"></label>
+                <select asp-for="TransportadoraId" class="form-control" asp-items="ViewBag.TransportadoraId"></select>
+                <span asp-validation-for="TransportadoraId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PagamentoId" class="control-label"></label>
+                <select asp-for="PagamentoId" class="form-control" asp-items="ViewBag.PagamentoId"></select>
+                <span asp-validation-for="PagamentoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <select asp-for="ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoDePagamentoId" class="control-label"></label>
+                <select asp-for="TipoDePagamentoId" class="form-control" asp-items="ViewBag.TipoDePagamentoId"></select>
+                <span asp-validation-for="TipoDePagamentoId" class="text-danger"></span>
+            </div>
+            @* parte de cancelar e devolver *@
+            <div class="form-group">
+              <button type="button" class="btn btn-danger cancelar-btn">Cancelar</button>
+<button type="button" class="btn btn-warning devolver-btn">Devolver</button>
+<button type="button" class="btn btn-success ativo-btn">Ativo</button>
+  <input type="submit" value="Save" class="btn btn-primary" />
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.ativo-btn').click(function () {
+            $('#statusDropdown').val('1'); // Define o valor para "Ativo"
+        });
+
+        $('.cancelar-btn').click(function () {
+            $('#statusDropdown').val('2'); // Define o valor para "Cancelado"
+        });
+
+        $('.devolver-btn').click(function () {
+            $('#statusDropdown').val('3'); // Define o valor para "Devolvido"
+        });
+    });
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
